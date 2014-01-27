@@ -1,0 +1,24 @@
+{
+  "name": "angular-file-uploader",
+  "version": "0.0.1",
+  "authors": [
+    "Jose Luis Rivas <me@ghostbar.co>"
+  ],
+  "description": "Factory for File Upload",
+  "main": "index.js",
+  "keywords": [
+    "file",
+    "upload",
+    "angular",
+    "factory",
+    "service"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
