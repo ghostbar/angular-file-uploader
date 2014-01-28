@@ -74,10 +74,8 @@
             // If there are no files then `$http.post` should
             // be used instead.
             //
-            if (files != null || !files.length) {
+            if (files == null)
               deferred.reject('There\'s no files to upload');
-              return;
-            }
 
             //
             // There's data to be added to the payload on this upload?
