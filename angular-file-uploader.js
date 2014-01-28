@@ -103,6 +103,15 @@
             //
             xhr.open('POST', url);
 
+            // 
+            // Any config for headers?
+            //
+            if (config && config.headers != null) {
+              Object.keys(config.headers).forEach(function (element) {
+                xhr.setRequestHeader(element, config.headers[element]);
+              });
+            }
+
             xhr.send(fd);
 
             return deferred.promise;
