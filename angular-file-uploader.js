@@ -89,8 +89,13 @@
             //
             // Load the files in the formData object
             //
-            for (var i = 0; i < files.length; i++) {
-              fd.append(files[i].name, files[i]);
+            //
+            if (files.length) {
+              for (var i = 0; i < files.length; i++) {
+                fd.append(files[i].name, files[i]);
+              }
+            } else {
+              fd.append(files.name, files);
             }
 
             //
