@@ -10,8 +10,9 @@
 (function() {
   'use strict';
   
-  angular.module('angular-file-uploader')
-    .factory('angular-file-uploader', [
+  angular.module('angular-file-uploader', [])
+
+    .factory('angularFileUploader', [
       '$q',
       '$rootScope',
       function($q, $rootScope) {
