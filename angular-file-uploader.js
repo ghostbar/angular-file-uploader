@@ -30,7 +30,7 @@
           // ### E.g
           //
           // ```
-          // $upload.send('/end-point', fileArray);
+          // ngUpload.send('/end-point', fileArray);
           // ```
           //
           send: function(url, files, data, config) {
