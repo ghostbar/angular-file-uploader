@@ -26,8 +26,6 @@
           // + `url` - `String` with the URI end-point.
           // + `files` - HTML file object, can be an `Array`
           // + `data` - (Optional) `JSON` with extra data to be sent
-          // + `callback` - (Optional) `Callback` function that returns
-          // the progress.
           //
           // ### E.g
           //
@@ -35,7 +33,7 @@
           // $upload.send('/end-point', fileArray);
           // ```
           //
-          send: function(url, files, data, callback) {
+          send: function(url, files, data, config) {
 
             var deferred = $q.defer();
 
@@ -48,11 +46,7 @@
                 if (event.lengthComputable) {
                   percent = Math.round(event.loaded / (event.total * 100));
 
-                  if (callback != null) {
-                    callback(percent);
-                  } else if (deferred.notify) {
-                    deferred.notify(percent);
-                  }
+                  deferred.notify(percent);
                 }
               });
             };
