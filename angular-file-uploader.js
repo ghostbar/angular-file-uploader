@@ -40,7 +40,7 @@
             var xhr = new XMLHttpRequest();
 
             xhr.upload.onprogress = function (event) {
-              $rootScope.apply(function () {
+              $rootScope.$apply(function () {
                 var percent;
 
                 if (event.lengthComputable) {
@@ -52,7 +52,7 @@
             };
 
             xhr.onload = function () {
-              $rootScope.apply(function () {
+              $rootScope.$apply(function () {
                 deferred.resolve({
                   files: files,
                   data: angular.fromJson(xhr.responseText)
@@ -63,7 +63,7 @@
             xhr.upload.onerror = function () {
               var msg = xhr.responseText ? xhr.responseText : 'Error occurred uploading to ' + url;
 
-              $rootScope.apply(function () {
+              $rootScope.$apply(function () {
                 deferred.reject(msg);
               });
             };
