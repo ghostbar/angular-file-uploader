@@ -91,10 +91,18 @@
             //
             // There's data to be added to the payload on this upload?
             //
-            if (data) {
-              Object.keys(data).forEach(function (element) {
-                fd.append(element, data[element]);
-              });
+            if (config && config.data != null) {
+              // If it's an Object then run over it, if not add it as `data` field.
+              if (typeof config.data === 'object') {
+                Object
+                  .keys(config.data)
+                  .forEach(function (element) {
+                    fd.append(element, config.data[element]);
+                  }
+                );
+              } else {
+                fd.append('data', config.data);
+              }
             }
 
             //
