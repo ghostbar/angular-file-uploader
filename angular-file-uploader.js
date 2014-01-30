@@ -27,7 +27,7 @@
           // + `files` - HTML file object, can be an `Array`
           // + `data` - (Optional) `JSON` with extra data to be sent
           // + `config` - (Optional) `Object` with extra stuff to be added to
-          // request. Right now only supports `headers`.
+          // request. Right now supports `headers` and `withCredentials`.
           //
           // ### E.g
           //
@@ -37,7 +37,8 @@
           // var config = { /* optional field */
           //   'headers': {
           //     'Authentication': 'Bearer randomasdasdas'
-          //   }
+          //   },
+          //   'withCredentials: true
           // };
           //
           // ngUpload.send('/end-point', fileArray);
@@ -123,6 +124,13 @@
               Object.keys(config.headers).forEach(function (element) {
                 xhr.setRequestHeader(element, config.headers[element]);
               });
+            }
+
+            //
+            // ### With Credentials
+            //
+            if (config && config.withCredentials != null) {
+              xhr.withCredentials = config.withCredentials;
             }
 
             xhr.send(fd);
