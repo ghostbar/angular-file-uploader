@@ -25,20 +25,24 @@
           //
           // + `url` - `String` with the URI end-point.
           // + `files` - HTML file object, can be an `Array`
-          // + `data` - (Optional) `JSON` with extra data to be sent
           // + `config` - (Optional) `Object` with extra stuff to be added to
-          // request. Right now supports `headers` and `withCredentials`.
+          // request. Right now supports:
+          //   - `headers` - {Object} map of strings to be sent as HTTP headers
+          //   - `withCredentials` - {Boolean} flag on XHR Object
+          //   - `data` - {Object|String} data to be sent as the request
+          //   message data
           //
           // ### E.g
           //
           // ```
-          // var data = {'random': 'field'}; /* optional field */
-          //
           // var config = { /* optional field */
           //   'headers': {
           //     'Authentication': 'Bearer randomasdasdas'
           //   },
-          //   'withCredentials: true
+          //   'withCredentials': true,
+          //   data: {
+          //     'random': 'field'
+          //   }
           // };
           //
           // ngUpload.send('/end-point', fileArray);
