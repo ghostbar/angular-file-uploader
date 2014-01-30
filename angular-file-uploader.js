@@ -26,10 +26,20 @@
           // + `url` - `String` with the URI end-point.
           // + `files` - HTML file object, can be an `Array`
           // + `data` - (Optional) `JSON` with extra data to be sent
+          // + `config` - (Optional) `Object` with extra stuff to be added to
+          // request. Right now only supports `headers`.
           //
           // ### E.g
           //
           // ```
+          // var data = {'random': 'field'}; /* optional field */
+          //
+          // var config = { /* optional field */
+          //   'headers': {
+          //     'Authentication': 'Bearer randomasdasdas'
+          //   }
+          // };
+          //
           // ngUpload.send('/end-point', fileArray);
           // ```
           //
@@ -103,8 +113,11 @@
             //
             xhr.open('POST', url);
 
+            //
+            // Adding configs
+            // --------------
             // 
-            // Any config for headers?
+            // ### Any config for headers?
             //
             if (config && config.headers != null) {
               Object.keys(config.headers).forEach(function (element) {
