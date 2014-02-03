@@ -43,9 +43,6 @@
           //   data: {
           //     'random': 'field'
           //   },
-          //   newFilenames: {
-          //     'oldName.ext': 'newName.ext'
-          //   },
           //   newNames: {
           //     'oldNameWithExtension': 'newNameWithoutExtension'
           //   }
