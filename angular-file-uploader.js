@@ -23,9 +23,9 @@
           //
           // ### Arguments
           //
-          // + `url` - `String` with the URI end-point.
-          // + `files` - HTML file object, can be an `Array`
-          // + `config` - (Optional) `Object` with extra stuff to be added to
+          // + `url` - {String} the URI end-point.
+          // + `files` - {File Blob|File Blob Array}
+          // + `config` - {Object} optional map with extra stuff to be added to
           // request. Right now supports:
           //   - `headers` - {Object} map of strings to be sent as HTTP headers
           //   - `withCredentials` - {Boolean} flag on XHR Object
@@ -42,6 +42,12 @@
           //   'withCredentials': true,
           //   data: {
           //     'random': 'field'
+          //   },
+          //   newFilenames: {
+          //     'oldName.ext': 'newName.ext'
+          //   },
+          //   newNames: {
+          //     'oldNameWithExtension': 'newNameWithoutExtension'
           //   }
           // };
           //
