@@ -118,7 +118,22 @@
             //
             if (files.length) {
               for (var i = 0; i < files.length; i++) {
-                fd.append(files[i].name, files[i]);
+                if (config && config.newNames != null && config.newNames[files[i].name] != null) {
+                  //
+                  // The match for extension is made for characters from 3 to 4 from the
+                  // final point. An extension with more than 4 characters and less than
+                  // 3 will be null. This includes the point so it would end like:
+                  //
+                  //     filename = "string.png";
+                  //     extension = ".png";
+                  //
+                  var extension = files[i].name.match(/\..{3,4}$/)[0];
+                  var newFilename = config.newNames[files[i].name] + extension;
+
+                  fd.append(files[i].name, files[i], newFilename);
+                } else {
+                  fd.append(files[i].name, files[i]);
+                }
               }
             } else {
               fd.append(files.name, files);
