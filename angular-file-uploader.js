@@ -34,7 +34,7 @@
           //
           // ### E.g
           //
-          // ```
+          // ```javascript
           // var config = { /* optional field */
           //   'headers': {
           //     'Authentication': 'Bearer randomasdasdas'
@@ -48,10 +48,10 @@
           //   }
           // };
           //
-          // ngUpload.send('/end-point', fileArray);
+          // ngUpload.send('/end-point', fileArray, config);
           // ```
           //
-          send: function(url, files, data, config) {
+          send: function(url, files, config) {
 
             var deferred = $q.defer();
 
