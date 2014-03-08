@@ -112,29 +112,37 @@
               }
             }
 
+            function getNewFilename(fileName, baseName) {
+              //
+              // The match for extension is made for characters from 3 to 4 from the
+              // final point. An extension with more than 4 characters and less than
+              // 3 will be null. This includes the point so it would end like:
+              //
+              //     filename = "string.png";
+              //     extension = ".png";
+              //
+              var extension = fileName.match(/\..{3,4}$/)[0];
+              var newFilename = baseName + extension;
+              return newFilename;
+            }
+
             //
             // Load the files in the formData object
             //
-            //
             if (files.length) {
               for (var i = 0; i < files.length; i++) {
-                if (config && config.newNames != null && config.newNames[files[i].name] != null) {
-                  //
-                  // The match for extension is made for characters from 3 to 4 from the
-                  // final point. An extension with more than 4 characters and less than
-                  // 3 will be null. This includes the point so it would end like:
-                  //
-                  //     filename = "string.png";
-                  //     extension = ".png";
-                  //
-                  var extension = files[i].name.match(/\..{3,4}$/)[0];
-                  var newFilename = config.newNames[files[i].name] + extension;
+                if (config && config.newNames && config.newNames[files[i].name] != null) {
+                  var newName = getNewFilename(files[i].name, config.newNames[files[i].name]);
 
-                  fd.append(files[i].name, files[i], newFilename);
+                  fd.append(files[i].name, files[i], newName);
                 } else {
                   fd.append(files[i].name, files[i]);
                 }
               }
+            } else if (files && config && config.newNames) {
+              var newName = getNewFilename(files.name, config.newNames[files.name]);
+
+              fd.append(files.name, files, newName);
             } else {
               fd.append(files.name, files);
             }
