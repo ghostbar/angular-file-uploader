@@ -1,0 +1,56 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "ANGULAR\-FILE\-UPLOADER" "3" "March 2014" "" ""
+.
+.SH "NAME"
+\fBangular\-file\-uploader\fR \- angular\.js service for uploading files
+.
+.SH "SYNOPSYS"
+.
+.nf
+
+/* Load the module into your app */
+angular\.module(\'myApp\', [\'angular\-file\-uploader\']);
+
+var DemoCtrl = [
+  \'$scope\',
+  \'angular\-file\-uploader\',
+  function ($scope, $upload) {
+
+    $scope\.upload = function () {
+
+      var extraData = {
+        hey: \'Extra Data\'
+      };
+
+      $upload\.send(
+        \'/upload/end\-point\',
+        document\.getElementById(\'file\-to\-upload\')\.files,
+        extraData
+      );
+
+    };
+
+  }
+]
+.
+.fi
+.
+.SH "DESCRIPTION"
+\fBangular\-file\-uploader\fR is an \fBAngular\.js\fR service that helps uploading files from the regular \fBBlob\fR object available in JavaScript\.
+.
+.P
+The difference with the regular service available in the core \fBAngular\.js\fR, \fB$http\.post\fR, is that returns the states given by the \fBXMLHttpRequest\fR JavaScript object: \fBonprogress\fR, \fBonerror\fR and \fBonload\fR in the form of \fBPromises\fR returns\.
+.
+.SH "BUGS"
+Please report any bug to \fIhttps://github\.com/ghostbar/angular\-file\-uploader\fR\.
+.
+.SH "AUTHOR"
+© 2014, Jose Luis Rivas \fB<me@ghostbar\.co>\fR\.
+.
+.SH "LICENSE"
+The files are licensed under the MIT terms\.
+.
+.SH "SEE ALSO"
+\fBangular\-file\-model\fR(3)

@@ -3,8 +3,8 @@ angular-file-uploader
 
 Simple Angular.js service for uploading files.
 
-Usage
------
+Installation
+------------
 
 Install with bower:
 
@@ -18,6 +18,8 @@ Now, inject to your application:
 
     angular.module('myApp', ['angular-file-uploader']);
 
+Usage
+-----
 Ready to use in your controllers!:
 
 `file.html`:
