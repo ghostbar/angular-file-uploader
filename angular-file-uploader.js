@@ -135,7 +135,9 @@
                 }
               }
             } else if (files && config && config.newNames) {
+              /* jshint -W004 */
               var newName = getNewFilename(files.name, config.newNames[files.name]);
+              /* jshing +W004 */
 
               fd.append(files.name, files, newName);
             } else {
