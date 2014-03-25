@@ -11,11 +11,9 @@
   'use strict';
   
   angular.module('angular-file-uploader', [])
-
     .factory('angularFileUploader', [
       '$q',
-      '$rootScope',
-      function($q, $rootScope) {
+      function($q) {
         return {
           //
           // Upload a file
@@ -58,32 +56,29 @@
             var xhr = new XMLHttpRequest();
 
             xhr.upload.onprogress = function (event) {
-              $rootScope.$apply(function () {
-                var percent;
+              var percent;
 
-                if (event.lengthComputable) {
-                  percent = Math.round(event.loaded / (event.total * 100));
+              if (event.lengthComputable) {
+                percent = Math.round(event.loaded / (event.total * 100));
 
-                  deferred.notify(percent);
-                }
-              });
+                deferred.notify(percent);
+              }
             };
 
             xhr.onload = function () {
-              $rootScope.$apply(function () {
-                deferred.resolve({
-                  files: files,
-                  data: angular.fromJson(xhr.responseText)
-                });
+              deferred.resolve({
+                files: files,
+                dataText: xhr.responseText,
+                data: xhr.response,
+                status: xhr.status,
+                statusText: xhr.statusText
               });
             };
 
             xhr.upload.onerror = function () {
               var msg = xhr.responseText ? xhr.responseText : 'Error occurred uploading to ' + url;
 
-              $rootScope.$apply(function () {
-                deferred.reject(msg);
-              });
+              deferred.reject(msg);
             };
 
             var fd = new FormData();
