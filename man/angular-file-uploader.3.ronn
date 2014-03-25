@@ -1,0 +1,53 @@
+angular-file-uploader - angular.js service for uploading files
+==============================================================
+
+SYNOPSYS
+--------
+
+    /* Load the module into your app */
+    angular.module('myApp', ['angular-file-uploader']);
+
+    var DemoCtrl = [
+      '$scope',
+      'angular-file-uploader',
+      function ($scope, $upload) {
+
+        $scope.upload = function () {
+
+          var extraData = {
+            hey: 'Extra Data'
+          };
+
+          $upload.send(
+            '/upload/end-point',
+            document.getElementById('file-to-upload').files,
+            extraData
+          );
+
+        };
+
+      }
+    ]
+
+DESCRIPTION
+-----------
+
+`angular-file-uploader` is an **Angular.js** service that helps uploading files from the regular `Blob` object available in JavaScript.
+
+The difference with the regular service available in the core **Angular.js**, `$http.post`, is that returns the states given by the `XMLHttpRequest` JavaScript object: `onprogress`, `onerror` and `onload` in the form of `Promises` returns.
+
+BUGS
+----
+Please report any bug to [https://github.com/ghostbar/angular-file-uploader](https://github.com/ghostbar/angular-file-uploader).
+
+AUTHOR
+------
+© 2014, Jose Luis Rivas `<me@ghostbar.co>`. 
+
+LICENSE
+-------
+The files are licensed under the MIT terms.
+
+SEE ALSO
+--------
+`angular-file-model`(3)
