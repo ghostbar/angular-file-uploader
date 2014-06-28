@@ -16,7 +16,7 @@ Add to your HTML files:
 
 Now, inject to your application:
 
-    angular.module('myApp', ['angular-file-uploader']);
+    angular.module('myApp', ['file-uploader']);
 
 Usage
 -----
@@ -31,14 +31,14 @@ Ready to use in your controllers!:
 
     var DemoCtrl = [
       '$scope', 
-      'angular-file-uploader', 
-      function ($scope, $upload) {
+      'file-uploader', 
+      function ($scope, fileUploader) {
         $scope.upload = function () {
           var extraData = {
             hey: 'Extra data'
           };
 
-          $upload.send(
+          fileUploader.send(
             '/upload/end-point', 
             document.getElementById('file-to-upload').files, 
             extraData

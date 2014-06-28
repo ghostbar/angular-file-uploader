@@ -1,5 +1,5 @@
 //
-// angular-file-uploader factory
+// file-uploader factory
 // ===========================
 //
 // Factory to support file upload with progress status on Angular.js.
@@ -10,8 +10,8 @@
 (function() {
   'use strict';
   
-  angular.module('angular-file-uploader', [])
-    .factory('angularFileUploader', [
+  angular.module('file-uploader', [])
+    .factory('FileUploader', [
       '$q',
       function($q) {
         return {
