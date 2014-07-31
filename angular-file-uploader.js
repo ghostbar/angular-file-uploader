@@ -56,12 +56,8 @@
             var xhr = new XMLHttpRequest();
 
             xhr.upload.onprogress = function (event) {
-              var percent;
-
               if (event.lengthComputable) {
-                percent = Math.round((event.loaded /event.total) * 100);
-
-                deferred.notify(percent);
+                deferred.notify(Math.round((event.loaded /event.total) * 100));
               }
             };
 
