@@ -62,7 +62,11 @@
             };
 
             xhr.onload = function () {
-              deferred.resolve({
+              var use = 'reject';
+              if (xhr.status.match(/^2/))
+                use = 'resolve';
+
+              deferred[use]({
                 files: files,
                 dataText: xhr.responseText,
                 data: xhr.response,
