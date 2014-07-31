@@ -1,29 +1,31 @@
 'use strict';
 
 var gulp = require('gulp');
-var mocha = require('gulp-mocha');
 var docco = require('gulp-docco');
 var subtree = require('gulp-subtree');
 var rimraf = require('gulp-rimraf');
+var karma = require('karma').server;
 
 var exec = require('child_process').exec;
 
 var opts = {
-  mocha: {
-    reporter: 'spec',
-    globals: [
-      'setImmediate',
-      'clearImmediate'
-    ]
+  karma: {
+    browsers: ['PhantomJS'],
+    frameworks: ['jasmine-ajax', 'jasmine'],
+    files: [
+      'bower_components/angular/angular.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'angular-file-uploader.js',
+      'test.js'
+    ],
+    singleRun: true
   }
 };
 
 gulp.task('default', ['test', 'watch']);
 
-gulp.task('test', function () {
-  return gulp
-    .src(['test/test-*.js'])
-    .pipe(mocha(opts.mocha));
+gulp.task('test', function (done) {
+  karma.start(opts.karma, done);
 });
 
 gulp.task('watch', function () {
@@ -72,10 +74,4 @@ gulp.task('push', function (cb) {
   });
 });
 
-gulp.task('npm-publish', function (cb) {
-  exec('npm publish', function (err) {
-    cb(err);
-  });
-});
-
-gulp.task('publish', ['docs', 'push', 'npm-publish']);
+gulp.task('publish', ['docs', 'push']);
