@@ -76,24 +76,35 @@ ngUpload.send(<span class="hljs-string">'/end-point'</span>, fileArray, config);
 </code></pre>
 
         
-          <div class='highlight'><pre>          send: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(url, files, config)</span> </span>{
+          <div class='highlight'><pre>          request: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(method, url, files, config)</span> </span>{
 
-            <span class="hljs-keyword">var</span> deferred = $q.defer();
+            <span class="hljs-keyword">var</span> deferred = $q.defer();</pre></div>
+        
+      
+        
+        <p>If there are no files then <code>$http.post</code> should
+be used instead.</p>
+
+        
+          <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (files == <span class="hljs-literal">null</span>) {
+              deferred.reject(<span class="hljs-string">'There\'s no files to upload'</span>);
+              <span class="hljs-keyword">return</span> deferred.promise;
+            }
 
             <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
 
             xhr.upload.onprogress = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(event)</span> </span>{
-              <span class="hljs-keyword">var</span> percent;
-
               <span class="hljs-keyword">if</span> (event.lengthComputable) {
-                percent = <span class="hljs-built_in">Math</span>.round(event.loaded / (event.total * <span class="hljs-number">100</span>));
-
-                deferred.notify(percent);
+                deferred.notify(<span class="hljs-built_in">Math</span>.round((event.loaded /event.total) * <span class="hljs-number">100</span>));
               }
             };
 
             xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-              deferred.resolve({
+              <span class="hljs-keyword">var</span> use = <span class="hljs-string">'reject'</span>;
+              <span class="hljs-keyword">if</span> (xhr.status &gt;= <span class="hljs-number">200</span> &amp;&amp; xhr.status &lt; <span class="hljs-number">300</span>)
+                use = <span class="hljs-string">'resolve'</span>;
+
+              deferred[use]({
                 files: files,
                 dataText: xhr.responseText,
                 data: xhr.response,
@@ -106,18 +117,10 @@ ngUpload.send(<span class="hljs-string">'/end-point'</span>, fileArray, config);
               <span class="hljs-keyword">var</span> msg = xhr.responseText ? xhr.responseText : <span class="hljs-string">'Error occurred uploading to '</span> + url;
 
               deferred.reject(msg);
+              <span class="hljs-keyword">return</span> deferred.promise;
             };
 
             <span class="hljs-keyword">var</span> fd = <span class="hljs-keyword">new</span> FormData();</pre></div>
-        
-      
-        
-        <p>If there are no files then <code>$http.post</code> should
-be used instead.</p>
-
-        
-          <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (files == <span class="hljs-literal">null</span>)
-              deferred.reject(<span class="hljs-string">'There\'s no files to upload'</span>);</pre></div>
         
       
         
@@ -189,7 +192,7 @@ extension = <span class="hljs-string">".png"</span>;
         <p>Send the files</p>
 
         
-          <div class='highlight'><pre>            xhr.open(<span class="hljs-string">'POST'</span>, url);</pre></div>
+          <div class='highlight'><pre>            xhr.open(method, url);</pre></div>
         
       
         
@@ -220,6 +223,15 @@ extension = <span class="hljs-string">".png"</span>;
 
             <span class="hljs-keyword">return</span> deferred.promise;
 
+          },
+          post: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(url, files, config)</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.request(<span class="hljs-string">'POST'</span>, url, files, config);
+          },
+          send: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(url, files, config)</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.request(<span class="hljs-string">'POST'</span>, url, files, config);
+          },
+          put: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(url, files, config)</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.request(<span class="hljs-string">'PUT'</span>, url, files, config);
           }
         };
       }
