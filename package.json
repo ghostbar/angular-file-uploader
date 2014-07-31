@@ -1,0 +1,36 @@
+{
+  "name": "angular-file-uploader",
+  "version": "0.3.0",
+  "description": "angular-file-uploader =====================",
+  "main": "angular-file-uploader.js",
+  "directories": {
+    "doc": "docs",
+    "man": "man"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-docco": "^0.0.4",
+    "gulp-mocha": "^0.5.2",
+    "gulp-rimraf": "^0.1.0",
+    "gulp-subtree": "^0.1.0"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "./node_modules/gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ghostbar/angular-file-uploader"
+  },
+  "keywords": [
+    "angular",
+    "file",
+    "uploader"
+  ],
+  "author": "Jose Luis Rivas <me@ghostbar.co>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghostbar/angular-file-uploader/issues"
+  },
+  "homepage": "https://github.com/ghostbar/angular-file-uploader"
+}
