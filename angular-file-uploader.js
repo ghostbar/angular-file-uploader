@@ -176,7 +176,9 @@
           post: function (url, files, config) {
             this.request('POST', url, files, config);
           },
-          send: this.post,
+          send: function (url, files, config) {
+            this.request('POST', url, files, config);
+          },
           put: function (url, files, config) {
             this.request('PUT', url, files, config);
           }
