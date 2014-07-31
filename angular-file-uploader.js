@@ -52,6 +52,15 @@
           request: function(method, url, files, config) {
 
             var deferred = $q.defer();
+            
+            //
+            // If there are no files then `$http.post` should
+            // be used instead.
+            //
+            if (files == null) {
+              deferred.reject('There\'s no files to upload');
+              return deferred.promise;
+            }
 
             var xhr = new XMLHttpRequest();
 
@@ -79,17 +88,11 @@
               var msg = xhr.responseText ? xhr.responseText : 'Error occurred uploading to ' + url;
 
               deferred.reject(msg);
+              return deferred.promise;
             };
 
             var fd = new FormData();
             
-            //
-            // If there are no files then `$http.post` should
-            // be used instead.
-            //
-            if (files == null)
-              deferred.reject('There\'s no files to upload');
-
             //
             // There's data to be added to the payload on this upload?
             //
