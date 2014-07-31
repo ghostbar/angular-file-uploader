@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "ANGULAR\-FILE\-UPLOADER" "3" "March 2014" "" ""
+.TH "ANGULAR\-FILE\-UPLOADER" "3" "July 2014" "" ""
 .
 .SH "NAME"
 \fBangular\-file\-uploader\fR \- angular\.js service for uploading files
@@ -11,11 +11,11 @@
 .nf
 
 /* Load the module into your app */
-angular\.module(\'myApp\', [\'angular\-file\-uploader\']);
+angular\.module(\'myApp\', [\'file\-uploader\']);
 
-var DemoCtrl = [
+angular\.module(\'myApp\')\.controller(\'DemoCtrl\', [
   \'$scope\',
-  \'angular\-file\-uploader\',
+  \'FileUploader\',
   function ($scope, $upload) {
 
     $scope\.upload = function () {
@@ -24,16 +24,16 @@ var DemoCtrl = [
         hey: \'Extra Data\'
       };
 
-      $upload\.send(
+      $upload\.post(
         \'/upload/end\-point\',
         document\.getElementById(\'file\-to\-upload\')\.files,
         extraData
-      );
+      )then(successFn, errorFn, progressFn);
 
     };
 
   }
-]
+]);
 .
 .fi
 .

@@ -76,11 +76,11 @@
 <h2 id="SYNOPSYS">SYNOPSYS</h2>
 
 <pre><code>/* Load the module into your app */
-angular.module('myApp', ['angular-file-uploader']);
+angular.module('myApp', ['file-uploader']);
 
-var DemoCtrl = [
+angular.module('myApp').controller('DemoCtrl', [
   '$scope',
-  'angular-file-uploader',
+  'FileUploader',
   function ($scope, $upload) {
 
     $scope.upload = function () {
@@ -89,16 +89,16 @@ var DemoCtrl = [
         hey: 'Extra Data'
       };
 
-      $upload.send(
+      $upload.post(
         '/upload/end-point',
         document.getElementById('file-to-upload').files,
         extraData
-      );
+      )then(successFn, errorFn, progressFn);
 
     };
 
   }
-]
+]);
 </code></pre>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
@@ -126,7 +126,7 @@ var DemoCtrl = [
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>March 2014</li>
+    <li class='tc'>July 2014</li>
     <li class='tr'>angular-file-uploader(3)</li>
   </ol>
 
