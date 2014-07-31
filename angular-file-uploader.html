@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>file-uploader factory</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          
+          <h1 id="file-uploader-factory">file-uploader factory</h1>
+
+          
+        
+
+        
+      </div>
+
+      
+        
+        <p>Factory to support file upload with progress status on Angular.js.</p>
+<p>You can upload files with <code>$http.post</code> and a <code>FormData</code> object but
+don’t get progress update on it.</p>
+
+        
+          <div class='highlight'><pre>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+<span class="hljs-pi">  'use strict'</span>;
+  
+  angular.module(<span class="hljs-string">'file-uploader'</span>, [])
+    .factory(<span class="hljs-string">'FileUploader'</span>, [
+      <span class="hljs-string">'$q'</span>,
+      <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($q)</span> </span>{
+        <span class="hljs-keyword">return</span> {</pre></div>
+        
+      
+        
+        <h2 id="upload-a-file">Upload a file</h2>
+
+        
+      
+        
+        <h3 id="arguments">Arguments</h3>
+<ul>
+<li><code>url</code> - {String} the URI end-point.</li>
+<li><code>files</code> - {File Blob|File Blob Array}</li>
+<li><code>config</code> - {Object} optional map with extra stuff to be added to
+request. Right now supports:<ul>
+<li><code>headers</code> - {Object} map of strings to be sent as HTTP headers</li>
+<li><code>withCredentials</code> - {Boolean} flag on XHR Object</li>
+<li><code>data</code> - {Object|String} data to be sent as the request
+message data</li>
+</ul>
+</li>
+</ul>
+<h3 id="e-g">E.g</h3>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> config = { <span class="hljs-comment">/* optional field */</span>
+  <span class="hljs-string">'headers'</span>: {
+    <span class="hljs-string">'Authentication'</span>: <span class="hljs-string">'Bearer randomasdasdas'</span>
+  },
+  <span class="hljs-string">'withCredentials'</span>: <span class="hljs-literal">true</span>,
+  data: {
+    <span class="hljs-string">'random'</span>: <span class="hljs-string">'field'</span>
+  },
+  newNames: {
+    <span class="hljs-string">'oldNameWithExtension'</span>: <span class="hljs-string">'newNameWithoutExtension'</span>
+  }
+};
+
+ngUpload.send(<span class="hljs-string">'/end-point'</span>, fileArray, config);
+</code></pre>
+
+        
+          <div class='highlight'><pre>          send: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(url, files, config)</span> </span>{
+
+            <span class="hljs-keyword">var</span> deferred = $q.defer();
+
+            <span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest();
+
+            xhr.upload.onprogress = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(event)</span> </span>{
+              <span class="hljs-keyword">var</span> percent;
+
+              <span class="hljs-keyword">if</span> (event.lengthComputable) {
+                percent = <span class="hljs-built_in">Math</span>.round(event.loaded / (event.total * <span class="hljs-number">100</span>));
+
+                deferred.notify(percent);
+              }
+            };
+
+            xhr.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+              deferred.resolve({
+                files: files,
+                dataText: xhr.responseText,
+                data: xhr.response,
+                status: xhr.status,
+                statusText: xhr.statusText
+              });
+            };
+
+            xhr.upload.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+              <span class="hljs-keyword">var</span> msg = xhr.responseText ? xhr.responseText : <span class="hljs-string">'Error occurred uploading to '</span> + url;
+
+              deferred.reject(msg);
+            };
+
+            <span class="hljs-keyword">var</span> fd = <span class="hljs-keyword">new</span> FormData();</pre></div>
+        
+      
+        
+        <p>If there are no files then <code>$http.post</code> should
+be used instead.</p>
+
+        
+          <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (files == <span class="hljs-literal">null</span>)
+              deferred.reject(<span class="hljs-string">'There\'s no files to upload'</span>);</pre></div>
+        
+      
+        
+        <p>There’s data to be added to the payload on this upload?</p>
+
+        
+          <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (config &amp;&amp; config.data != <span class="hljs-literal">null</span>) {</pre></div>
+        
+      
+        
+        <p>If it’s an Object then run over it, if not add it as <code>data</code> field.</p>
+
+        
+          <div class='highlight'><pre>              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> config.data === <span class="hljs-string">'object'</span>) {
+                <span class="hljs-built_in">Object</span>
+                  .keys(config.data)
+                  .forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(element)</span> </span>{
+                    fd.append(element, config.data[element]);
+                  }
+                );
+              } <span class="hljs-keyword">else</span> {
+                fd.append(<span class="hljs-string">'data'</span>, config.data);
+              }
+            }
+
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNewFilename</span><span class="hljs-params">(fileName, baseName)</span> </span>{</pre></div>
+        
+      
+        
+        <p>The match for extension is made for characters from 3 to 4 from the
+final point. An extension with more than 4 characters and less than
+3 will be null. This includes the point so it would end like:</p>
+<pre><code>filename = <span class="hljs-string">"string.png"</span>;
+extension = <span class="hljs-string">".png"</span>;
+</code></pre>
+        
+          <div class='highlight'><pre>              <span class="hljs-keyword">var</span> extension = fileName.match(<span class="hljs-regexp">/\..{3,4}$/</span>)[<span class="hljs-number">0</span>];
+              <span class="hljs-keyword">var</span> newFilename = baseName + extension;
+              <span class="hljs-keyword">return</span> newFilename;
+            }</pre></div>
+        
+      
+        
+        <p>Load the files in the formData object</p>
+
+        
+          <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (files.length) {
+              <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; files.length; i++) {
+                <span class="hljs-keyword">if</span> (config &amp;&amp; config.newNames &amp;&amp; config.newNames[files[i].name] != <span class="hljs-literal">null</span>) {
+                  <span class="hljs-keyword">var</span> newName = getNewFilename(files[i].name, config.newNames[files[i].name]);
+
+                  fd.append(files[i].name, files[i], newName);
+                } <span class="hljs-keyword">else</span> {
+                  fd.append(files[i].name, files[i]);
+                }
+              }
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (files &amp;&amp; config &amp;&amp; config.newNames) {
+              <span class="hljs-comment">/* jshint -W004 */</span>
+              <span class="hljs-keyword">var</span> newName = getNewFilename(files.name, config.newNames[files.name]);
+              <span class="hljs-comment">/* jshing +W004 */</span>
+
+              fd.append(files.name, files, newName);
+            } <span class="hljs-keyword">else</span> {
+              fd.append(files.name, files);
+            }</pre></div>
+        
+      
+        
+        <p>Send the files</p>
+
+        
+          <div class='highlight'><pre>            xhr.open(<span class="hljs-string">'POST'</span>, url);</pre></div>
+        
+      
+        
+        <h2 id="adding-configs">Adding configs</h2>
+
+        
+      
+        
+        <h3 id="any-config-for-headers-">Any config for headers?</h3>
+
+        
+          <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (config &amp;&amp; config.headers != <span class="hljs-literal">null</span>) {
+              <span class="hljs-built_in">Object</span>.keys(config.headers).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(element)</span> </span>{
+                xhr.setRequestHeader(element, config.headers[element]);
+              });
+            }</pre></div>
+        
+      
+        
+        <h3 id="with-credentials">With Credentials</h3>
+
+        
+          <div class='highlight'><pre>            <span class="hljs-keyword">if</span> (config &amp;&amp; config.withCredentials != <span class="hljs-literal">null</span>) {
+              xhr.withCredentials = config.withCredentials;
+            }
+
+            xhr.send(fd);
+
+            <span class="hljs-keyword">return</span> deferred.promise;
+
+          }
+        };
+      }
+    ]);
+})();</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>
