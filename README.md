@@ -1,4 +1,4 @@
-angular-file-uploader [![Build Status](https://secure.travis-ci.org/ghostbar/angular-file-uploader.png)](http://travis.ci.org/ghostbar/angular-file-uploader)
+angular-file-uploader [![Build Status](https://secure.travis-ci.org/ghostbar/angular-file-uploader.png)](http://travis.ci.org/ghostbar/angular-file-uploader) [![Code Climate](https://codeclimate.com/github/ghostbar/angular-file-uploader/badges/gpa.svg)](https://codeclimate.com/github/ghostbar/angular-file-uploader)
 =====================
 
 Simple Angular.js service for uploading files.
