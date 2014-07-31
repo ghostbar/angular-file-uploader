@@ -59,7 +59,7 @@
               var percent;
 
               if (event.lengthComputable) {
-                percent = Math.round(event.loaded / (event.total * 100));
+                percent = Math.round((event.loaded /event.total) * 100);
 
                 deferred.notify(percent);
               }
