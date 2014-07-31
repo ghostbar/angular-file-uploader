@@ -29,9 +29,11 @@ Ready to use in your controllers!:
 
 `controller.js:`
 
-    var DemoCtrl = [
+    angular.module('yourApp', ['file-uploader']);
+
+    angular.module('yourApp').controller('DemoCtrl', [
       '$scope', 
-      'file-uploader', 
+      'FileUploader', 
       function ($scope, fileUploader) {
         $scope.upload = function () {
           var extraData = {
@@ -42,10 +44,10 @@ Ready to use in your controllers!:
             '/upload/end-point', 
             document.getElementById('file-to-upload').files, 
             extraData
-          );
+          )then(success, error, progress);
         };
       }
-    ]
+    ]);
 
 Author
 ------
