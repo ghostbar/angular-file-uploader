@@ -18,6 +18,13 @@ Now, inject to your application:
 
     angular.module('myApp', ['file-uploader']);
 
+Demo
+----
+
+Yeah! Got a demo already! Check it out here, explains more in-depth that the usage section here:
+
+<http://plnkr.co/l63VJk>
+
 Usage
 -----
 Ready to use in your controllers!:
@@ -40,7 +47,7 @@ Ready to use in your controllers!:
             hey: 'Extra data'
           };
 
-          fileUploader.send(
+          fileUploader.post(
             '/upload/end-point', 
             document.getElementById('file-to-upload').files, 
             extraData
@@ -48,6 +55,21 @@ Ready to use in your controllers!:
         };
       }
     ]);
+
+Full API
+--------
+
++ `FileUploader.post(url, files, config)`: makes a `POST` request.
++ `FileUploader.put(url, files, config)`: makes a `PUT` request.
++ `FileUploader.send(url, files, config)`: same as `.post()` but should not be used, is left just for compatibility with old implementations.
++ `FileUploader.request(method, url, files, config)`: This is the base function, it may change so please use either `.post()` or `.put()` unless you actually need to use a different method (really?! which method are you using??!!).
+
+Changes on v1.0.0
+-----------------
+
++ When loading the module just use `file-uploader` instead of `angular-file-uploader`.
++ When loading the service in your controller/directive/service use `FileUploader`.
++ Prefer to use `.post()` or `.put()` instead of the old `.send()` which should be deprecated in coming versions. `.request()` is available as well but use it only if necessary since this may change.
 
 Author
 ------
