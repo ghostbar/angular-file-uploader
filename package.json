@@ -1,7 +1,7 @@
 {
   "name": "angular-file-uploader",
   "version": "0.3.0",
-  "description": "angular-file-uploader =====================",
+  "description": "Angular.js service for uploading files with progress notification",
   "main": "angular-file-uploader.js",
   "directories": {
     "doc": "docs",
@@ -10,9 +10,12 @@
   "devDependencies": {
     "gulp": "^3.8.6",
     "gulp-docco": "^0.0.4",
-    "gulp-mocha": "^0.5.2",
     "gulp-rimraf": "^0.1.0",
-    "gulp-subtree": "^0.1.0"
+    "gulp-subtree": "^0.1.0",
+    "karma": "^0.12.19",
+    "karma-jasmine": "^0.1.5",
+    "karma-jasmine-ajax": "^0.1.4",
+    "karma-phantomjs-launcher": "^0.1.4"
   },
   "dependencies": {},
   "scripts": {
