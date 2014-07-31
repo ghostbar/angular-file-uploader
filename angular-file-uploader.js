@@ -49,7 +49,7 @@
           // ngUpload.send('/end-point', fileArray, config);
           // ```
           //
-          send: function(url, files, config) {
+          request: function(method, url, files, config) {
 
             var deferred = $q.defer();
 
@@ -147,7 +147,7 @@
             //
             // Send the files
             //
-            xhr.open('POST', url);
+            xhr.open(method, url);
 
             //
             // Adding configs
@@ -172,6 +172,13 @@
 
             return deferred.promise;
 
+          },
+          post: function (url, files, config) {
+            this.request('POST', url, files, config);
+          },
+          send: this.post,
+          put: function (url, files, config) {
+            this.request('PUT', url, files, config);
           }
         };
       }
