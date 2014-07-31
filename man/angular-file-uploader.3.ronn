@@ -5,11 +5,11 @@ SYNOPSYS
 --------
 
     /* Load the module into your app */
-    angular.module('myApp', ['angular-file-uploader']);
+    angular.module('myApp', ['file-uploader']);
 
-    var DemoCtrl = [
+    angular.module('myApp').controller('DemoCtrl', [
       '$scope',
-      'angular-file-uploader',
+      'FileUploader',
       function ($scope, $upload) {
 
         $scope.upload = function () {
@@ -18,16 +18,16 @@ SYNOPSYS
             hey: 'Extra Data'
           };
 
-          $upload.send(
+          $upload.post(
             '/upload/end-point',
             document.getElementById('file-to-upload').files,
             extraData
-          );
+          )then(successFn, errorFn, progressFn);
 
         };
 
       }
-    ]
+    ]);
 
 DESCRIPTION
 -----------
