@@ -63,7 +63,7 @@
 
             xhr.onload = function () {
               var use = 'reject';
-              if (xhr.status.match(/^2/))
+              if (xhr.status >= 200 && xhr.status < 300)
                 use = 'resolve';
 
               deferred[use]({
