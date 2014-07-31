@@ -174,13 +174,13 @@
 
           },
           post: function (url, files, config) {
-            this.request('POST', url, files, config);
+            return this.request('POST', url, files, config);
           },
           send: function (url, files, config) {
-            this.request('POST', url, files, config);
+            return this.request('POST', url, files, config);
           },
           put: function (url, files, config) {
-            this.request('PUT', url, files, config);
+            return this.request('PUT', url, files, config);
           }
         };
       }
