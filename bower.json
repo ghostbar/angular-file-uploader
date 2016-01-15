@@ -1,11 +1,11 @@
 {
   "name": "angular-file-uploader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     "Jose Luis Rivas <me@ghostbar.co>"
   ],
   "description": "Factory for File Upload",
-  "main": "index.js",
+  "main": "angular-file-uploader.js",
   "keywords": [
     "file",
     "upload",
