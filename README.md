@@ -73,7 +73,7 @@ Changes on v1.0.0
 
 Author
 ------
-© 2014, Jose Luis Rivas `<me@ghostbar.co>`. 
+© 2014-2016, Jose-Luis Rivas `<me@ghostbar.co>`. 
 
 License
 -------
